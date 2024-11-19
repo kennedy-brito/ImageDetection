@@ -1,17 +1,25 @@
 from video_face_detection import VideoImageDetector
+import argparse
 
-plates = "haarcascade_russian_plate_number.xml"
-faces = "haarcascade_frontalface_default.xml"
+if __name__ == "__main__":
+  parser = argparse.ArgumentParser(
+                  prog='Image Detection',
+                  description='A project for Face or Plates detection for the discipline of "Tópicos Especiais I"'
+                  )
+  parser.add_argument('-p', '--plate', action='store_true')
+  parser.add_argument('-f', '--face', action='store_true')
 
-app  = VideoImageDetector(plates)
+  plates = "haarcascade_russian_plate_number.xml"
+  faces = "haarcascade_frontalface_default.xml"
+
+  args = parser.parse_args()
+  
+  if args.plate:
+    model = plates
+  else:
+    model = faces
+
+  app  = VideoImageDetector(model)
 
 
-app.run()
-
-
-
-
-
-
-#https://www.datacamp.com/tutorial/face-detection-python-opencv
-#https://docs.opencv.org/3.4/db/d28/tutorial_cascade_classifier.html
+  app.run()
